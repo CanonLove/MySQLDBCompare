@@ -5,7 +5,7 @@ Language : PHP
 
 
 
-MySQL DB Table and Procedure Compare
+# MySQL DB Table and Procedure Compare
 
 1) DB1 - Real DB
 
@@ -19,12 +19,12 @@ MySQL DB Table and Procedure Compare
 
 
 
-* DB port usage
+# DB port usage
  
 ex) 192.168.1.1:3306
 
 
 
-* text diff php source (Created by Stephen Morley)
+# text diff php source (Created by Stephen Morley)
 
 http://code.stephenmorley.org/php/diff-implementation/
