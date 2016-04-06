@@ -4,8 +4,7 @@ MySql Table and Procedure Compare tool
 Language : PHP
 
 
-
-# MySQL DB Table and Procedure Compare
+**MySQL DB Table and Procedure Compare**
 
 1) DB1 - Real DB
 
@@ -19,13 +18,13 @@ Language : PHP
 
 
 
-# DB port usage
+**DB port usage**
  
 ex) 192.168.1.1:3306
 
 
 
-# text diff php source
+**text diff php source**
 
 - Created by Stephen Morley (class.Diff.php)
 
