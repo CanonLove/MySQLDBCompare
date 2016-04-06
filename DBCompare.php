@@ -7,9 +7,9 @@
 # DB1 / DB2 Compare
 # 1) DB1 - Real DB
 # 2) DB2 - Development DB
-# 3) DB1 에만 Table/Procedure 에는 있고 DB2 에는 없으면 경고창만 출력
-# 4) DB1 에는 Table/Procedure 가 없고 DB2 에만 있으면 Create 생성
-# 5) 기본적으로 Drop 관련 명령어는 생성하지 않음
+# 3) DB1 is Table/Procedure exist & DB2 is Table/Procedure not exist >> 'Be careful' text print
+# 4) DB1 is Table/Procedure not exist & DB2 is Table/Procedure not exist  >> 'Create Table & Procedure'  generated
+# 5) 'Drop Table & Procedure' not generated
 #
 ###############################################
 
