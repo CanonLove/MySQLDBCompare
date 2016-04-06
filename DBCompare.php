@@ -876,10 +876,13 @@ if( ($DB1Ip == "") || ($DB1Name=="")  || ($DB1User=="")  || ($DB1Pwd=="")
 			$key = array_search($ProName, $ProName2);
 
 			echo "<br><b>===== Procedure : $ProName =======</b> ";
-			if( ($ProField1[$i]  == $ProField2[$key])  && ($key>-1)) {
+			
+			$text1 = strtr($ProField1[$i],array("\r\n"=>'',"\r"=>'',"\n"=>''));
+			$text2 = strtr($ProField2[$key],array("\r\n"=>'',"\r"=>'',"\n"=>''));
+			
+			if( ($text1  == $text2)  && ($key>-1)) {
 				echo "  :: <font color=#00f><b>pass</b></font> ";
-			//} else {
-			} else if(  ($ProField1[$i]  <> $ProField2[$key]) && ($key>-1)  )  {
+			} else if(  ($text1  <> $text2) && ($key>-1)  )  {
 				$ProChk++;
 				//echo "<br> DROP PROCEDURE IF EXISTS $ProName; ";
 				//echo "<br><xmp>$ProField2[$key];</xmp> ";
