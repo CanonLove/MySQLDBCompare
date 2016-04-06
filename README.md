@@ -13,9 +13,9 @@ Language : PHP
 
 3) DB1 is Table/Procedure exist & DB2 is Table/Procedure not exist >> 'Be careful' text print
 
-4) DB1 is Table/Procedure not exist & DB2 is Table/Procedure not exist  >> 'Create Table & Procedure'  generated
+4) DB1 is Table/Procedure not exist & DB2 is Table/Procedure not exist  >> 'Create Table & Procedure SQL' print
 
-5) 'Drop Table & Procedure' not generated
+5) 'Drop Table & Procedure' not print (not generated)
 
 
 
