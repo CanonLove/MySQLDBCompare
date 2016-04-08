@@ -652,7 +652,7 @@ if( ($DB1Ip == "") || ($DB1Name=="")  || ($DB1User=="")  || ($DB1Pwd=="")
 					 if( ($FieldOutputsequence == "") && ($kk <> $findFieldNo ) ) { 
 
 						$FieldOutputsequence = 1;
-						echo "<br><font color=B200FF><b>$Table  :: [Different ordering Field   >>  Be careful] </b></font>";
+					        echo "<br><font color=B200FF><b>$Table  :: [The order of the field is different.   >>  Be careful] </b></font>";
 					 }
 					 
 					 $prnModifyNull = '';
