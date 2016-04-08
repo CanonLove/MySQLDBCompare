@@ -631,17 +631,33 @@ if( ($DB1Ip == "") || ($DB1Name=="")  || ($DB1User=="")  || ($DB1Pwd=="")
 				#
 				############
 				$FieldCnt = sizeof($TableField1[$i]);
+				$FieldOutputsequence = "";
+				
 				for($kk=0; $kk<$FieldCnt; $kk++) {
 					 $tmp1Field = $TableField1[$i][$kk]['Field'];
 					 $tmp1Type = $TableField1[$i][$kk]['Type'];
 					 $tmp1Key = $TableField1[$i][$kk]['Key'];
 
-					 $tmp2Field = $TableField2[$key][$kk]['Field'];
+					 /*$tmp2Field = $TableField2[$key][$kk]['Field'];
 					 $tmp2Type = $TableField2[$key][$kk]['Type'];
 					 $tmp2Null = $TableField2[$key][$kk]['Null'];
 					 $tmp2Default = $TableField2[$key][$kk]['Default'];
-					 $tmp2Key= $TableField2[$key][$kk]['Key'];
+					 $tmp2Key= $TableField2[$key][$kk]['Key'];*/
+					 
+					$cnt22 = sizeof( $TableField2[$key]);
 
+					$findFieldNo = -1;
+					for($mm=0; $mm< $cnt22 ; $mm++) { 
+						if(   $TableField1[$i][$kk]['Field'] == $TableField2[$key][$mm]['Field']	 ) { 
+							$findFieldNo = $mm;
+						}
+					 }
+					 if( ($FieldOutputsequence == "") && ($kk <> $findFieldNo ) ) { 
+
+						$FieldOutputsequence = 1;
+						echo "<br><font color=B200FF><b>$Table  :: [Different ordering Field   >>  Be careful] </b></font>";
+					 }
+					 
 					 $prnModifyNull = '';
 					 if($tmp2Null == 'NO') {  $prnModifyNull  = 'NOT NULL';}
 					 $prnModifyDefault  = '';
