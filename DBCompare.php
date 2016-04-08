@@ -45,9 +45,6 @@ $DB2Pwd = trim($_POST['DB2Pwd']);
 	.width95 { width:95px;}
 	.width130 { width:130px;}
 
-	del{background:#fcc}		/* text diff */
-	ins{background:#cfc}		/* text diff */
-
 	/* top */
 	#layer_fixed	{ height:170px;width:100%; color: #555; font-size:12px; position:fixed; z-index:999; top:0px; left:0px; -webkit-box-shadow: 0 1px 2px 0 #777; box-shadow: 0 1px 2px 0 #777; background-color:#ccc; }
 
