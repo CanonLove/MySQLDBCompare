@@ -2,7 +2,7 @@
 ###############################################
 #
 # 2016.04.01 / DB Compare / by CanonLove
-#
+# 2022.01.04 ver 1.0.1
 #
 # DB1 / DB2 Compare
 # 1) DB1 - Real DB
@@ -17,18 +17,22 @@ require_once('./class.Diff.php');							/* text diff */
 /*  class.Diff.php is http://code.stephenmorley.org/php/diff-implementation/  */
 
 function _microtime ( ) { return array_sum(explode(' ',microtime())); }    /* Page loading time check */
-$time_start=_microtime();																			/* Page loading time check */
+$time_start=_microtime();
+
+$ip = $_SERVER["REMOTE_ADDR"];
+
+/* Page loading time check */
 
 /* post value START */
-$DB1Ip = trim($_POST['DB1Ip']);
-$DB1Name = trim($_POST['DB1Name']);
-$DB1User = trim($_POST['DB1User']);
-$DB1Pwd = trim($_POST['DB1Pwd']);
+$DB1Ip = isset($_POST['DB1Ip']) ? trim($_POST['DB1Ip']) : "";
+$DB1Name = isset($_POST['DB1Name']) ? trim($_POST['DB1Name']) : "";
+$DB1User = isset($_POST['DB1User']) ? trim($_POST['DB1User']) : "";
+$DB1Pwd = isset($_POST['DB1Pwd']) ? trim($_POST['DB1Pwd']) : "";
 
-$DB2Ip = trim($_POST['DB2Ip']);
-$DB2Name = trim($_POST['DB2Name']);
-$DB2User = trim($_POST['DB2User']);
-$DB2Pwd = trim($_POST['DB2Pwd']);
+$DB2Ip = isset($_POST['DB2Ip']) ? trim($_POST['DB2Ip']) : "";
+$DB2Name = isset($_POST['DB2Name']) ? trim($_POST['DB2Name']) : "";
+$DB2User = isset($_POST['DB2User']) ? trim($_POST['DB2User']) : "";
+$DB2Pwd = isset($_POST['DB2Pwd']) ? trim($_POST['DB2Pwd']) : "";
 /* post value END */
 ?>
 <html>
@@ -168,10 +172,10 @@ $DB2Pwd = trim($_POST['DB2Pwd']);
 
 <!-- DB Info Input Form Start  //-->
 <div id="layer_fixed">
-	<h1 style="margin : -5px 10px 0 10px; float:left">DB checker v1.0</h1><h4 style="margin : -2px 10px 0 10px;">You're IP : <?=$ip;?></h4><br>
+	<h1 style="margin : -5px 10px 0 10px; float:left">DB checker ver 1.0.1</h1><h4 style="margin : -2px 10px 0 10px;">You're IP : <?=$ip;?></h4><br>
 	<form name="frm" action="<?php echo $_SERVER['PHP_SELF']?>" method="post">
 	<div style="float:left; margin : 0 10px 0 10px;">
-		<table border=1>
+		<table style="border:1px;">
 		<tr class="tr1 h27">
 			<td colspan=2><b>#DB 1  :: Real</b></td>
 		</tr>
@@ -202,7 +206,7 @@ $DB2Pwd = trim($_POST['DB2Pwd']);
 	</div>
 	<div style="float:left; margin-right:10px;">
 
-		<table border=1>
+		<table style="border:1px;">
 		<tr class="tr1 h27">
 			<td colspan=2><b>#DB 2  :: Dev</b></td>
 		</tr>
@@ -225,7 +229,7 @@ $DB2Pwd = trim($_POST['DB2Pwd']);
 		<div class="resultBtn">>> results >></div>
 	</div>
 	<div>
-		<table border=1>
+		<table style="border:1px;">
 		<tr>
 			<td  class="tr1 textcenter" colspan=2><h2>Compare results</h2></td>
 		</tr>
@@ -243,11 +247,15 @@ $DB2Pwd = trim($_POST['DB2Pwd']);
 <!-- DB Info Input Form END  //-->
 
 <?php
+// 1) DB password required
+// if( ($DB1Ip == "") || ($DB1Name=="")  || ($DB1User=="")  || ($DB1Pwd=="")
+// 	&&
+// 	($DB2Ip == "")  ||  ($DB2Name=="")  || ($DB2User=="")  || ($DB2Pwd=="")
 
-if( ($DB1Ip == "") || ($DB1Name=="")  || ($DB1User=="")  || ($DB1Pwd=="")
-	&&
-	($DB2Ip == "")  ||  ($DB2Name=="")  || ($DB2User=="")  || ($DB2Pwd=="")
-
+// 2) DB password blank (for local test)
+if( ($DB1Ip == "") || ($DB1Name=="")  || ($DB1User=="")  
+ 	&&
+ 	($DB2Ip == "")  ||  ($DB2Name=="")  || ($DB2User=="")
 ) {
 	echo "<div style='margin-top:170px;'></div><h1>DB Info ......... blank</h1>";
 
@@ -504,7 +512,7 @@ if( ($DB1Ip == "") || ($DB1Name=="")  || ($DB1User=="")  || ($DB1Pwd=="")
 				} else {
 					echo $TableDB2[$i]."<br>";
 				}
-			$fieldCnt2 += sizeof($TableField1[$i]);
+			$fieldCnt2 += sizeof($TableField2[$i]);
 			echo "</td>";
 			echo "<td class='td1'>".sizeof($TableField2[$i])."</td>";
 			echo "</tr>";
@@ -641,6 +649,13 @@ if( ($DB1Ip == "") || ($DB1Name=="")  || ($DB1User=="")  || ($DB1Pwd=="")
 					 $tmp2Default = $TableField2[$key][$kk]['Default'];
 					 $tmp2Key= $TableField2[$key][$kk]['Key'];*/
 					 
+					 $tmp2Field = isset($TableField2[$key][$kk]['Field']) ? $TableField2[$key][$kk]['Field'] : "";
+					 $tmp2Type = isset($TableField2[$key][$kk]['Type']) ? $TableField2[$key][$kk]['Type'] : "";
+					 $tmp2Null = isset($TableField2[$key][$kk]['Null']) ? $TableField2[$key][$kk]['Null'] : "";
+					 $tmp2Default = isset($TableField2[$key][$kk]['Default']) ? $TableField2[$key][$kk]['Default'] : "";
+					 $tmp2Key = isset($TableField2[$key][$kk]['Key']) ? $TableField2[$key][$kk]['Key'] : "";
+
+					 
 					$cnt22 = sizeof( $TableField2[$key]);
 
 					$findFieldNo = -1;
@@ -685,10 +700,14 @@ if( ($DB1Ip == "") || ($DB1Name=="")  || ($DB1User=="")  || ($DB1Pwd=="")
 					// $tmp1Field = $TableField1[$i][$kk]['Field'];
 					// $tmp1Type = $TableField1[$i][$kk]['Type'];
 
-					 $tmp2Field = $TableField2[$key][$kk]['Field'];
-					 $tmp2Type = $TableField2[$key][$kk]['Type'];
-					 $tmp2Null = $TableField2[$key][$kk]['Null'];
-					 $tmp2Default = $TableField2[$key][$kk]['Default'];
+					//  $tmp2Field = $TableField2[$key][$kk]['Field'];
+					//  $tmp2Type = $TableField2[$key][$kk]['Type'];
+					//  $tmp2Null = $TableField2[$key][$kk]['Null'];
+					//  $tmp2Default = $TableField2[$key][$kk]['Default'];
+					 $tmp2Field = isset($TableField2[$key][$kk]['Field']) ? $TableField2[$key][$kk]['Field'] : "";
+					 $tmp2Type = isset($TableField2[$key][$kk]['Type']) ? $TableField2[$key][$kk]['Type'] : "";
+					 $tmp2Null = isset($TableField2[$key][$kk]['Null']) ? $TableField2[$key][$kk]['Null'] : "";
+					 $tmp2Default = isset($TableField2[$key][$kk]['Default']) ? $TableField2[$key][$kk]['Default'] : "";					 
 
 					 if( $tmp2Field ) {
 
@@ -888,10 +907,16 @@ if( ($DB1Ip == "") || ($DB1Name=="")  || ($DB1User=="")  || ($DB1Pwd=="")
 			$key = "";
 			$key = array_search($ProName, $ProName2);
 
-			echo "<br><b>===== Procedure : $ProName =======</b> ";
+			echo "<br><b>===== Procedure : $ProName =======</b>";
+
+			$key = isset($key) ? $key : 0;
 			
 			$text1 = strtr($ProField1[$i],array("\r\n"=>'',"\r"=>'',"\n"=>''));
-			$text2 = strtr($ProField2[$key],array("\r\n"=>'',"\r"=>'',"\n"=>''));
+			if($key>0) {
+				$text2 = strtr($ProField2[$key],array("\r\n"=>'',"\r"=>'',"\n"=>''));
+			} else { 
+				$text2 = "";
+			}
 			
 			if( ($text1  == $text2)  && ($key>-1)) {
 				echo "  :: <font color=#00f><b>pass</b></font> ";
